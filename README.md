@@ -1,6 +1,6 @@
 # StairLighting
 ---
-#Why?
+# Why?
   - Idea - https://www.reddit.com/r/homeautomation/comments/r3qbqt/my_stairs_to_the_first_floor_now_use_3_ip/
   - Automatically Light the way when walking up or down the stairs
   - Stairs were being rebuilt so I had access to the back of them for wiring
