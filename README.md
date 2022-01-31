@@ -38,3 +38,9 @@ https://github.com/espressif/arduino-esp32
 
 when installing pyserial doesn't work - https://engineerworkshop.com/blog/esp32-compiler-error-in-arduino-ide-heltec-esp32-tools-esptool-esptool-py-no-module-named-serial-tools-list_ports/
 
+# Help From
+  - vlh53l0x - https://github.com/pololu/vl53l0x-arduino
+  - vlh53l0x usage - https://github.com/kriswiner/ESP32/blob/master/VL53L0x/VL53L0X_ESP32.ino
+
+
+

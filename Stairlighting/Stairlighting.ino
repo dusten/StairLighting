@@ -11,6 +11,22 @@
 #include <TimeLib.h>
 #include <WidgetRTC.h>
 
+#include <Wire.h>
+#include "vl53l0x.h"
+
+VL53L0X sensor;
+#define HIGH_ACCURACY
+int myLed = 5;
+int intPin = 14;
+
+bool newData = false;
+
+uint32_t delt_t = 0, count = 0, sumCount = 0;  // used to control display output rate
+float deltat = 0.0f, sum = 0.0f;          // integration interval for both filter schemes
+uint32_t lastUpdate = 0, firstUpdate = 0; // used to calculate integration interval
+uint32_t Now = 0;                         // used to calculate integration interval
+
+
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
 char auth[] = "YourAuthToken";
@@ -37,6 +53,43 @@ WidgetLED statusLED(V10);
 #define BLYNK_ORANGE    "#E68A00"
 #define BLYNK_RED       "#D3435C"
 #define BLYNK_DARK_BLUE "#5F7CD8"
+
+#define stair01
+#define stair02
+#define stair03
+#define stair04
+#define stair05
+#define stair06
+#define stair07
+#define stair08
+#define stair09
+#define stair10
+#define stair11
+#define stair13
+#define stair14
+#define stair15
+#define stair16
+
+
+void ledOn(int stairNo, int brightness, int color)
+{
+
+}
+
+void ledOff(int stairNo)
+{
+  
+}
+
+void fadeLedOn(int stairNo, int brightness, int color)
+{
+  
+}
+
+void fadeLedOff(int stairNo)
+{
+  
+}
 
 void requestTime()
 {
@@ -86,4 +139,51 @@ void loop()
   timer.run();
   
   ArduinoOTA.handle();
+}
+
+void myinthandler()
+{
+  newData = true; // set the new data ready flag to true on interrupt
+}
+
+// I2C scan function
+void I2Cscan()
+{
+// scan for i2c devices
+  byte error, address;
+  int nDevices;
+
+  Serial.println("Scanning...");
+
+  nDevices = 0;
+  for(address = 1; address < 127; address++ ) 
+  {
+    // The i2c_scanner uses the return value of
+    // the Write.endTransmisstion to see if
+    // a device did acknowledge to the address.
+    Wire.beginTransmission(address);
+    error = Wire.endTransmission();
+
+    if (error == 0)
+    {
+      Serial.print("I2C device found at address 0x");
+      if (address<16) 
+        Serial.print("0");
+      Serial.print(address,HEX);
+      Serial.println("  !");
+
+      nDevices++;
+    }
+    else if (error==4) 
+    {
+      Serial.print("Unknown error at address 0x");
+      if (address<16) 
+        Serial.print("0");
+      Serial.println(address,HEX);
+    }    
+  }
+  if (nDevices == 0)
+    Serial.println("No I2C devices found\n");
+  else
+    Serial.println("done\n");
 }
